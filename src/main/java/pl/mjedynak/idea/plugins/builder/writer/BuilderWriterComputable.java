@@ -53,7 +53,14 @@ class BuilderWriterComputable implements Computable<PsiElement> {
                 .withInitializingMethod()
                 .withSetMethods(context.getMethodPrefix());
         addButMethodIfNecessary(context, builder);
+        addSeededFromMethodIfNecessary(context, builder);
         return builder.build();
+    }
+
+    private void addSeededFromMethodIfNecessary(final BuilderContext context, final BuilderPsiClassBuilder builder) {
+        if (context.hasSeededFrom()) {
+            builder.withSeededFromMethod();
+        }
     }
 
     private PsiClass getBuilderPsiClass(BuilderContext context) {
@@ -63,6 +70,7 @@ class BuilderWriterComputable implements Computable<PsiElement> {
                 .withInitializingMethod()
                 .withSetMethods(context.getMethodPrefix());
         addButMethodIfNecessary(context, builder);
+        addSeededFromMethodIfNecessary(context, builder);
         return builder.build();
     }
 

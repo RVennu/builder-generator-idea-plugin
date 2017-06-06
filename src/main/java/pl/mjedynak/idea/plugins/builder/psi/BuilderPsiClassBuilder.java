@@ -34,6 +34,7 @@ public class BuilderPsiClassBuilder {
     private CodeStyleSettings codeStyleSettings = new CodeStyleSettings();
     private ButMethodCreator butMethodCreator;
     private MethodCreator methodCreator;
+    private SeededFromCreator seededFromCreator;
 
     private PsiClass srcClass = null;
     private String builderClassName = null;
@@ -77,6 +78,7 @@ public class BuilderPsiClassBuilder {
         allSelectedPsiFields = context.getPsiFieldsForBuilder().getAllSelectedFields();
         methodCreator = new MethodCreator(elementFactory, builderClassName);
         butMethodCreator = new ButMethodCreator(elementFactory);
+        seededFromCreator = new SeededFromCreator(elementFactory);
     }
 
     public BuilderPsiClassBuilder withFields() {
@@ -125,6 +127,12 @@ public class BuilderPsiClassBuilder {
 
     public BuilderPsiClassBuilder withButMethod() {
         PsiMethod method = butMethodCreator.butMethod(builderClassName, builderClass, srcClass);
+        builderClass.add(method);
+        return this;
+    }
+
+    public BuilderPsiClassBuilder withSeededFromMethod() {
+        PsiMethod method = seededFromCreator.seededFromMethod(builderClassName, builderClass, srcClass);
         builderClass.add(method);
         return this;
     }

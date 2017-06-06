@@ -54,6 +54,7 @@ public class CreateBuilderDialog extends DialogWrapper {
     private JTextField targetMethodPrefix;
     private JCheckBox innerBuilder;
     private JCheckBox butMethod;
+    private JCheckBox seededFrom;
     private ReferenceEditorComboWithBrowseButton targetPackageField;
 
     public CreateBuilderDialog(Project project,
@@ -78,6 +79,7 @@ public class CreateBuilderDialog extends DialogWrapper {
         String targetPackageName = (targetPackage != null) ? targetPackage.getQualifiedName() : "";
         targetPackageField = referenceEditorComboWithBrowseButtonFactory.getReferenceEditorComboWithBrowseButton(project, targetPackageName, RECENTS_KEY);
         targetPackageField.addActionListener(new ChooserDisplayerActionListener(targetPackageField, new PackageChooserDialogFactory(), project));
+        targetPackageField.setEnabled(false);
         setTitle(title);
     }
 
@@ -184,6 +186,7 @@ public class CreateBuilderDialog extends DialogWrapper {
         gbConstraints.anchor = GridBagConstraints.WEST;
 
         innerBuilder = new JCheckBox();
+        innerBuilder.setSelected(true);
         innerBuilder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -212,6 +215,26 @@ public class CreateBuilderDialog extends DialogWrapper {
         butMethod = new JCheckBox();
         panel.add(butMethod, gbConstraints);
         // but method
+
+        // seededFrom
+        gbConstraints.insets = new Insets(4, 8, 4, 8);
+        gbConstraints.gridx = 0;
+        gbConstraints.weightx = 0;
+        gbConstraints.gridy = 6;
+        gbConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gbConstraints.anchor = GridBagConstraints.WEST;
+        panel.add(new JLabel("seededFrom"), gbConstraints);
+
+        gbConstraints.insets = new Insets(4, 8, 4, 8);
+        gbConstraints.gridx = 1;
+        gbConstraints.weightx = 1;
+        gbConstraints.gridwidth = 1;
+        gbConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gbConstraints.anchor = GridBagConstraints.WEST;
+        seededFrom = new JCheckBox();
+        seededFrom.setSelected(true);
+        panel.add(seededFrom, gbConstraints);
+        // seededFrom
 
         return panel;
     }
@@ -283,5 +306,9 @@ public class CreateBuilderDialog extends DialogWrapper {
 
     public void setTargetDirectory(PsiDirectory targetDirectory) {
         this.targetDirectory = targetDirectory;
+    }
+
+    public boolean hasSeededFrom() {
+        return seededFrom.isSelected();
     }
 }

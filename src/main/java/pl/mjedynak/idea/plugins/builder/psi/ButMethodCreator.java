@@ -52,4 +52,6 @@ public class ButMethodCreator {
     private boolean methodIsNotConstructor(String builderClassName, PsiMethod method) {
         return !method.getName().equals(builderClassName);
     }
+
+
 }

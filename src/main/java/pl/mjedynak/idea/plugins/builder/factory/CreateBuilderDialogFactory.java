@@ -25,7 +25,7 @@ public class CreateBuilderDialogFactory {
     }
 
     public CreateBuilderDialog createBuilderDialog(PsiClass sourceClass, Project project, PsiPackage srcPackage) {
-        return new CreateBuilderDialog(project, DIALOG_NAME, sourceClass, sourceClass.getName() + BUILDER_SUFFIX, METHOD_PREFIX, srcPackage, psiHelper, guiHelper,
+        return new CreateBuilderDialog(project, DIALOG_NAME, sourceClass, BUILDER_SUFFIX, METHOD_PREFIX, srcPackage, psiHelper, guiHelper,
                 referenceEditorComboWithBrowseButtonFactory);
     }
 }
